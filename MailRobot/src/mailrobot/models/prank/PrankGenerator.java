@@ -20,13 +20,17 @@ public class PrankGenerator {
 
     private LinkedList<Prank> pranks;
 
-    public PrankGenerator() throws IOException {
-        cf = new ConfigManager();
+    public PrankGenerator(ConfigManager cf) throws IOException {
+        this.cf = cf;
         pranks = new LinkedList();
 
         for (int i = 0; i < cf.getNombreGroupe(); ++i) {
             pranks.add(new Prank());
         }
+    }
+
+    public LinkedList<Prank> getPranks() {
+        return pranks;
     }
 
     public void generatePrank() {
@@ -51,6 +55,7 @@ public class PrankGenerator {
                 randomVictims.add(cf.getVictims().get(rand.nextInt(nbVictims)));
             }
             prank.addVictimRespients(randomVictims);
+            prank.setMessage(cf.getMessages().get(rand.nextInt(cf.getMessages().size())));
         }
     }
 }

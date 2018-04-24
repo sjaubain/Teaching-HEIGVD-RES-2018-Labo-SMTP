@@ -1,11 +1,7 @@
 package mailrobot.models.prank;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
-import mailrobot.config.ConfigManager;
-import mailrobot.config.IconfigManager;
 import mailrobot.models.mail.Message;
 import mailrobot.models.mail.Person;
 
@@ -18,7 +14,7 @@ public class Prank {
     private Person victimSender;
     private final LinkedList<Person> victimRecipients = new LinkedList<>();
     private final LinkedList<Person> witnessRecipients = new LinkedList<>();
-    private String message;
+    private Message message;
 
     public Person getVictimSender() {
         return victimSender;
@@ -28,11 +24,11 @@ public class Prank {
         this.victimSender = person;
     }
 
-    public String getMessage() {
+    public Message getMessage() {
         return message;
     }
 
-    public void setMessage(String message) {
+    public void setMessage(Message message) {
         this.message = message;
     }
 
@@ -52,7 +48,4 @@ public class Prank {
         return witnessRecipients;
     }
 
-    public void generateMailMessage() {
-       
-    }
 }

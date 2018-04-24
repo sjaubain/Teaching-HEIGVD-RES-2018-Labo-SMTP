@@ -30,6 +30,7 @@ public class SmtpClient implements ISmtpClient {
 
     @Override
     public void sendMessage(Prank prank) throws IOException {
+        System.out.println(prank);
         socket = new Socket(serverAddress, smtpServerPort);
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
@@ -43,17 +44,17 @@ public class SmtpClient implements ISmtpClient {
             line = reader.readLine();
         }
         writer.write("MAIL FROM:");
-        writer.write(message.getFrom());
+        writer.write(prank.getVictimSender().getMail());
         writer.write("\r\n");
         writer.flush();
         line = reader.readLine();
-        for (Person to : message.getTo()) {
+        for (Person to : prank.getVictimRecipients()) {
             writer.write("RCPT TO:");
             writer.write(to.getMail());
             writer.write("\r\n");
             writer.flush();
         }
-        for (Person to : message.getCc()) {
+        for (Person to : prank.getWitnessRecipients()) {
             writer.write("RCPT TO:");
             writer.write(to.getMail());
             writer.write("\r\n");
@@ -64,21 +65,21 @@ public class SmtpClient implements ISmtpClient {
         writer.write("\r\n");
         writer.flush();
         line = reader.readLine();
-        writer.write("from: " + message.getFrom() + "\r\n");
-        Iterator<Person> it = message.getTo().iterator();
+        writer.write("from: " + prank.getVictimSender().getMail() + "\r\n");
+        Iterator<Person> it = prank.getVictimRecipients().iterator();
         writer.write("To: " + it.next().getMail());
         while (it.hasNext()) {
             writer.write("," + it.next().getMail());
         }
         writer.write("\r\n");
-        it = message.getCc().iterator();
+        it = prank.getWitnessRecipients().iterator();
         writer.write("Cc: " + it.next().getMail());
         while (it.hasNext()) {
             writer.write("," + it.next().getMail());
         }
         writer.write("\r\n");
         writer.flush();
-        writer.write(message.getBody());
+        writer.write(prank.getMessage().toString());
         writer.write("\n\r");
         writer.write(".");
         writer.write("\r\n");

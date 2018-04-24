@@ -16,23 +16,26 @@ import mailrobot.models.mail.Message;
 public class ConfigManager implements IconfigManager {
 
     private String SMTPServerAdress;
-    private String SMTPServerPort;
+    private int SMTPServerPort;
     private int nombreGroupe;
     private LinkedList<Person> witness;
     private LinkedList<Person> victims;
     private LinkedList<Message> messages;
 
     public ConfigManager() throws IOException {
-        loadFileProperties("./configuration/properties.properties");
-        loadVictims("./configuration/listVictims.txt");
-        loadMessages("./configuration/messages.txt");
+        witness = new LinkedList();
+        victims = new LinkedList();
+        messages = new LinkedList();
+        loadFileProperties("./src/configuration//properties.properties");
+        loadVictims("./src/configuration//listVictims.txt");
+        loadMessages("./src/configuration//messages.utf8");
     }
 
     public String getSMTPServerAdress() {
         return SMTPServerAdress;
     }
 
-    public String getSMTPServerPort() {
+    public int getSMTPServerPort() {
         return SMTPServerPort;
     }
 
@@ -48,6 +51,10 @@ public class ConfigManager implements IconfigManager {
         return victims;
     }
 
+    public LinkedList<Message> getMessages() {
+        return messages;
+    }
+
     @Override
     public void loadFileProperties(String fileName) throws IOException {
 
@@ -55,13 +62,14 @@ public class ConfigManager implements IconfigManager {
         Properties prop = new Properties();
         prop.load(in);
         this.SMTPServerAdress = prop.getProperty("ServerAdress");
-        this.SMTPServerPort = prop.getProperty("serverPort");
+        this.SMTPServerPort = Integer.valueOf(prop.getProperty("serverPort"));
         this.nombreGroupe = Integer.valueOf(prop.getProperty("nbGroups"));
         String Witns = prop.getProperty("witnessesToCC");
         String[] wit = Witns.split(",");
         for (String s : wit) {
             witness.add(new Person(s));
         }
+        in.close();
     }
 
     @Override
@@ -72,6 +80,8 @@ public class ConfigManager implements IconfigManager {
         while ((mail = bufferedReader.readLine()) != null) {
             victims.add(new Person(mail));
         }
+        fileReader.close();
+        bufferedReader.close();
     }
 
     @Override
@@ -82,13 +92,15 @@ public class ConfigManager implements IconfigManager {
         while ((message = bufferedReader.readLine()) != null) {
             String subject = bufferedReader.readLine();
             bufferedReader.readLine();
-            String body="";
+            String body = "";
             String s;
-            while ((s = bufferedReader.readLine())!="@@@") {
-                body+=s;
+            while ((s = bufferedReader.readLine()) != "@@@") {
+                body += s;
             }
             messages.add(new Message(subject, body));
         }
+        fileReader.close();
+        bufferedReader.close();
     }
 
 }
