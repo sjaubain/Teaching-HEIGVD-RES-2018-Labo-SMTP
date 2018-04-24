@@ -13,17 +13,27 @@ Le but de cette application est de définir un client SMTP qui envoie automatiqu
 
 Les différents dossiers de configuration sont les suivants:
 
-* properties.properties **contient les informations sur les ports à utiliser.
+-**properties.properties** -contient les informations sur les ports à utiliser.
 
-* messages.utf8 ** contient la liste des e-mails à envoyer.
+-**messages.utf8** -contient la liste des e-mails à envoyer.
 
-* listVictims ** contient tous les emails susceptibles d'être spammés
+-**listVictims** -contient tous les emails susceptibles d'être spammés
 
 
 
 
 ## Execution en ligne de commandes avec docker 
 
-* exécuter la commande Docker build -t mail puis sudo docker run -it -p 2525:2525 -p 8080:8080 smtp -p 2525 -h 8080 pour lancer le container docker
+* exécuter la commande 
+```bash
+Docker build -t mail 
+```
 
+puis 
+
+```bash
+sudo docker run -it -p 2525:2525 -p 8080:8080 smtp -p 2525 -h 8080 
+```
+
+pour lancer le container docker
 
