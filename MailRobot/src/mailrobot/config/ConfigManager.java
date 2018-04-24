@@ -5,7 +5,9 @@
  */
 package mailrobot.config;
 
+import java.io.BufferedReader;
 import java.io.FileInputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import mailrobot.models.mail.Person;
 import java.util.LinkedList;
@@ -24,8 +26,31 @@ public class ConfigManager implements IconfigManager {
     private LinkedList<Person> victims;
 
     public ConfigManager() throws IOException {
-        loadFileProperties("./config/configuration/properties.properties");
+        loadFileProperties("./configuration/properties.properties");
+        loadVictims("./configuration/listVictims.txt");
+        loadMessages("./configuration/messages.txt");
     }
+
+    public String getSMTPServerAdress() {
+        return SMTPServerAdress;
+    }
+
+    public String getSMTPServerPort() {
+        return SMTPServerPort;
+    }
+
+    public int getNombreGroupe() {
+        return nombreGroupe;
+    }
+
+    public LinkedList<Person> getWitness() {
+        return witness;
+    }
+
+    public LinkedList<Person> getVictims() {
+        return victims;
+    }
+    
 
     @Override
     public void loadFileProperties(String fileName) throws IOException {
@@ -44,13 +69,23 @@ public class ConfigManager implements IconfigManager {
     }
 
     @Override
-    public void loadVictims(String fileName) {
-
+    public void loadVictims(String fileName)throws IOException {
+        FileReader fileReader = new FileReader(fileName);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String mail;
+        while((mail=bufferedReader.readLine())!=null){
+            victims.add(new Person(mail));
+        }
     }
 
     @Override
-    public void loadMessages(String filename) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void loadMessages(String filename)throws IOException {
+                FileReader fileReader = new FileReader(filename);
+        BufferedReader bufferedReader = new BufferedReader(fileReader);
+        String message;
+        while((message=bufferedReader.readLine())!=null){
+            victims.add(new Person(message));
+        }
     }
 
 }

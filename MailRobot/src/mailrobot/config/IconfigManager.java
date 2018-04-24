@@ -15,7 +15,7 @@ import mailrobot.models.prank.Prank;
  */
 public interface IconfigManager {
     public void loadFileProperties(String fileName)throws IOException;
-    public void loadVictims(String fileName);
-    public void loadMessages(String filename);
+    public void loadVictims(String fileName)throws IOException;
+    public void loadMessages(String filename)throws IOException;
     
 }
