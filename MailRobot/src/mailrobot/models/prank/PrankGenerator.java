@@ -15,42 +15,42 @@ import java.util.Random;
  * @author Lagha Oussama - Jobin Simon
  */
 public class PrankGenerator {
-    
+
     private ConfigManager cf;
-    
+
     private LinkedList<Prank> pranks;
-    
+
     public PrankGenerator() throws IOException {
         cf = new ConfigManager();
         pranks = new LinkedList();
-        
-        for(int i = 0; i < cf.getNombreGroupe(); ++i) {
+
+        for (int i = 0; i < cf.getNombreGroupe(); ++i) {
             pranks.add(new Prank());
         }
     }
-    
+
     public void generatePrank() {
-       
+
         Random rand = new Random();
-        
+
         int nbVictims = cf.getVictims().size();
-        
-        for(Prank prank : pranks) {
-            
+
+        for (Prank prank : pranks) {
+
             prank.addWitnessRecipients(cf.getWitness());
             int idVictimSender = rand.nextInt(nbVictims);
             prank.setVictimSender(cf.getVictims().get(idVictimSender));
-            
+
             LinkedList randomVictims = new LinkedList();
-            for(int i = 0; i < nbVictims / cf.getNombreGroupe(); ++i) {
-                
+            for (int i = 0; i < nbVictims / cf.getNombreGroupe(); ++i) {
+
                 int idVictim = rand.nextInt(nbVictims);
-                while(idVictim == idVictimSender) {
-                    idVictim = rand.nextInt(nbVictims);                 
+                while (idVictim == idVictimSender) {
+                    idVictim = rand.nextInt(nbVictims);
                 }
                 randomVictims.add(cf.getVictims().get(rand.nextInt(nbVictims)));
             }
-            prank.addVictimRecipients(randomVictims);
+            prank.addVictimRespients(randomVictims);
         }
     }
 }

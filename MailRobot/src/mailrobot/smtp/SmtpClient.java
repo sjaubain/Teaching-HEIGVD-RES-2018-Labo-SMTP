@@ -18,7 +18,7 @@ import mailrobot.models.prank.Prank;
 public class SmtpClient implements ISmtpClient {
 
     private String serverAddress;
-    private int smtpServerPort = 25;
+    private int smtpServerPort ;
     private Socket socket;
     private PrintWriter writer;
     private BufferedReader reader;
