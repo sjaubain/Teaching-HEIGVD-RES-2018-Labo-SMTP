@@ -30,12 +30,12 @@ public class SmtpClient implements ISmtpClient {
 
     @Override
     public void sendMessage(Prank prank) throws IOException {
-        System.out.println(prank);
         socket = new Socket(serverAddress, smtpServerPort);
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
         String line = reader.readLine();
         writer.print("EHLO localhost\r\n");
+        writer.flush();
         line = reader.readLine();
         if (!line.startsWith("250")) {
             throw new IOException("SMTP error " + line);
@@ -79,8 +79,11 @@ public class SmtpClient implements ISmtpClient {
         }
         writer.write("\r\n");
         writer.flush();
-        writer.write(prank.getMessage().toString());
+        writer.write("SUBJECT : "+prank.getMessage().getSubject());
         writer.write("\n\r");
+        writer.flush();
+        writer.write(prank.getMessage().getBody()+"\r\n");
+        writer.flush();
         writer.write(".");
         writer.write("\r\n");
         writer.flush();

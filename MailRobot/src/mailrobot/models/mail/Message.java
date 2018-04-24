@@ -31,7 +31,4 @@ public class Message {
     public void setBody(String body) {
         this.body = body;
     }
-    public String toString(){
-        return "SUBJECT :"+subject+"\r\n\n"+body;
-    }
 }

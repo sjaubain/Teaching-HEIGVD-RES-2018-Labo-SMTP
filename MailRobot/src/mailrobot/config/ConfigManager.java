@@ -90,11 +90,11 @@ public class ConfigManager implements IconfigManager {
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String message;
         while ((message = bufferedReader.readLine()) != null) {
-            String subject = bufferedReader.readLine();
+            String subject = message;
             bufferedReader.readLine();
             String body = "";
             String s;
-            while ((s = bufferedReader.readLine()) != "@@@") {
+            while (!"@@@".equals(s = bufferedReader.readLine())) {
                 body += s;
             }
             messages.add(new Message(subject, body));

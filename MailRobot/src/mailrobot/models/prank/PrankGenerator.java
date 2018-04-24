@@ -27,6 +27,7 @@ public class PrankGenerator {
         for (int i = 0; i < cf.getNombreGroupe(); ++i) {
             pranks.add(new Prank());
         }
+        generatePrank();
     }
 
     public LinkedList<Prank> getPranks() {
