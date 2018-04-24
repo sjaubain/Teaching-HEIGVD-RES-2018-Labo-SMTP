@@ -5,7 +5,7 @@ import java.util.LinkedList;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public class Message {
     private String from;

@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon 
  */
 public class Group {
     

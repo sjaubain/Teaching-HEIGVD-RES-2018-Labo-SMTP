@@ -6,7 +6,7 @@ import mailrobot.models.mail.Message;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public interface ISmtpClient {
     public void sendMessage(Message message)throws IOException;

@@ -8,7 +8,7 @@ import mailrobot.models.mail.Person;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public class Prank {
     private Person victimSender;
