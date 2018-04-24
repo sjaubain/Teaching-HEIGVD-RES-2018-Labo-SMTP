@@ -13,11 +13,11 @@ Le but de cette application est de définir un client SMTP qui envoie automatiqu
 
 Les différents dossiers de configuration sont les suivants:
 
--**properties.properties** -contient les informations sur les ports à utiliser.
+* **properties.properties** contient les informations sur les ports à utiliser.
 
--**messages.utf8** -contient la liste des e-mails à envoyer.
+* **messages.utf8** contient la liste des e-mails à envoyer.
 
--**listVictims** -contient tous les emails susceptibles d'être spammés
+* **listVictims** contient tous les emails susceptibles d'être spammés
 
 
 
@@ -26,7 +26,7 @@ Les différents dossiers de configuration sont les suivants:
 
 * exécuter la commande 
 ```bash
-Docker build -t mail 
+Docker build -t smtp
 ```
 
 puis 
