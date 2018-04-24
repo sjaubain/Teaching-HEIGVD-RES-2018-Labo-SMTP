@@ -7,7 +7,7 @@ package mailrobot;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public class MailRobot {
 

@@ -11,7 +11,7 @@ import mailrobot.models.mail.Message;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public class SmtpClient implements ISmtpClient{
     private String serverAddress;

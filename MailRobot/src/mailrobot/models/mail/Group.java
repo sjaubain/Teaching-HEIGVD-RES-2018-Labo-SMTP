@@ -7,7 +7,7 @@ package mailrobot.models.mail;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon 
  */
 public class Group {
     

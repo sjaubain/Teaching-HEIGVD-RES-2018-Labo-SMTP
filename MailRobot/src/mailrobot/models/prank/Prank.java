@@ -7,7 +7,7 @@ package mailrobot.models.prank;
 
 /**
  *
- * @author oussama
+ * @author Lagha Oussama - Jobin Simon
  */
 public class Prank {
     
