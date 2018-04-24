@@ -1,4 +1,3 @@
-
 package mailrobot.smtp;
 
 import java.io.BufferedReader;
@@ -7,15 +6,19 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.util.Iterator;
 import mailrobot.models.mail.Message;
+import mailrobot.models.mail.Person;
+import mailrobot.models.prank.Prank;
 
 /**
  *
  * @author Lagha Oussama - Jobin Simon
  */
-public class SmtpClient implements ISmtpClient{
+public class SmtpClient implements ISmtpClient {
+
     private String serverAddress;
-    private int smtpServerPort=25;
+    private int smtpServerPort = 25;
     private Socket socket;
     private PrintWriter writer;
     private BufferedReader reader;
@@ -26,50 +29,53 @@ public class SmtpClient implements ISmtpClient{
     }
 
     @Override
-    public void sendMessage(Message message) throws IOException {
-        socket =new Socket(serverAddress, smtpServerPort);
-        writer =new PrintWriter(new OutputStreamWriter(socket.getOutputStream(),"UTF-8"),true);
-        reader = new BufferedReader(new InputStreamReader(socket.getInputStream(),"UTF-8"));
+    public void sendMessage(Prank prank) throws IOException {
+        Message message =prank.getMessage();
+        socket = new Socket(serverAddress, smtpServerPort);
+        writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
+        reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
         String line = reader.readLine();
         writer.print("EHLO localhost\r\n");
-        line =reader.readLine();
-        if(!line.startsWith("250")){
-            throw new IOException("SMTP error "+line);
+        line = reader.readLine();
+        if (!line.startsWith("250")) {
+            throw new IOException("SMTP error " + line);
         }
-        while(line.startsWith("250-")){
-            line=reader.readLine();
+        while (line.startsWith("250-")) {
+            line = reader.readLine();
         }
         writer.write("MAIL FROM:");
         writer.write(message.getFrom());
         writer.write("\r\n");
         writer.flush();
-        line=reader.readLine();
-        for(String to :message.getTo()){
-        writer.write("RCPT TO:");
-        writer.write(to);
-        writer.write("\r\n");
-        writer.flush();   
-    }
-        for(String to:message.getCc()){
-        writer.write("RCPT TO:");
-        writer.write(to);
-        writer.write("\r\n");
-        writer.flush();   
-            
+        line = reader.readLine();
+        for (Person to : message.getTo()) {
+            writer.write("RCPT TO:");
+            writer.write(to.getMail());
+            writer.write("\r\n");
+            writer.flush();
+        }
+        for (Person to : message.getCc()) {
+            writer.write("RCPT TO:");
+            writer.write(to.getMail());
+            writer.write("\r\n");
+            writer.flush();
+
         }
         writer.write("DATA");
         writer.write("\r\n");
         writer.flush();
-        line=reader.readLine();
-        writer.write("from: "+message.getFrom()+"\r\n");
-        writer.write("To: "+message.getTo()[0]);
-        for(int i=1;i<message.getTo().length;++i){
-            writer.write(","+message.getTo()[i]);
+        line = reader.readLine();
+        writer.write("from: " + message.getFrom() + "\r\n");
+        Iterator<Person> it = message.getTo().iterator();
+        writer.write("To: " + it.next().getMail());
+        while (it.hasNext()) {
+            writer.write("," + it.next().getMail());
         }
         writer.write("\r\n");
-        writer.write("Cc: "+message.getCc()[0]);
-        for(int i=1;i<message.getCc().length;++i){
-            writer.write(","+message.getCc()[i]);
+        it = message.getCc().iterator();
+        writer.write("Cc: " + it.next().getMail());
+        while (it.hasNext()) {
+            writer.write("," + it.next().getMail());
         }
         writer.write("\r\n");
         writer.flush();
@@ -78,13 +84,11 @@ public class SmtpClient implements ISmtpClient{
         writer.write(".");
         writer.write("\r\n");
         writer.flush();
-        line=reader.readLine();
+        line = reader.readLine();
         writer.write("QUIT\r\n");
         writer.flush();
         reader.close();
         writer.close();
         socket.close();
-        
     }
-    
 }

@@ -21,7 +21,6 @@ public class Message {
         this.subject = subject;
         this.body = body;
     }
-
     
     public String getFrom() {
         return from;
