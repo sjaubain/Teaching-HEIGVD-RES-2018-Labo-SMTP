@@ -1,17 +1,28 @@
 
 package mailrobot.models.mail;
 
+import java.util.LinkedList;
+
 /**
  *
  * @author oussama
  */
 public class Message {
     private String from;
-    private String []to=new String[0];
-    private String[] cc=new String[0];
+    private LinkedList<Person>to;
+    private LinkedList <Person>cc;
     private String subject;
     private String body;
 
+    public Message(String from, String subject, String body,LinkedList<Person> to,LinkedList<Person>cc) {
+        this.from = from;
+        this.to=to;
+        this.cc=cc;
+        this.subject = subject;
+        this.body = body;
+    }
+
+    
     public String getFrom() {
         return from;
     }
@@ -20,19 +31,19 @@ public class Message {
         this.from = from;
     }
 
-    public String[] getTo() {
+    public LinkedList<Person> getTo() {
         return to;
     }
 
-    public void setTo(String[] to) {
+    public void setTo(LinkedList<Person> to) {
         this.to = to;
     }
 
-    public String[] getCc() {
+    public LinkedList<Person> getCc() {
         return cc;
     }
 
-    public void setCc(String[] cc) {
+    public void setCc(LinkedList<Person> cc) {
         this.cc = cc;
     }
 
