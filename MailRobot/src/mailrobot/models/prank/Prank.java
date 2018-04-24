@@ -18,7 +18,7 @@ public class Prank {
     private Person victimSender;
     private final LinkedList<Person> victimRecipients = new LinkedList<>();
     private final LinkedList<Person> witnessRecipients = new LinkedList<>();
-    private Message message;
+    private String message;
 
     public Person getVictimSender() {
         return victimSender;
@@ -28,11 +28,11 @@ public class Prank {
         this.victimSender = person;
     }
 
-    public Message getMessage() {
+    public String getMessage() {
         return message;
     }
 
-    public void setMessage(Message message) {
+    public void setMessage(String message) {
         this.message = message;
     }
 

@@ -1,4 +1,3 @@
-
 package mailrobot.config;
 
 import java.io.BufferedReader;
@@ -8,6 +7,7 @@ import java.io.IOException;
 import mailrobot.models.mail.Person;
 import java.util.LinkedList;
 import java.util.Properties;
+import mailrobot.models.mail.Message;
 
 /**
  *
@@ -20,6 +20,7 @@ public class ConfigManager implements IconfigManager {
     private int nombreGroupe;
     private LinkedList<Person> witness;
     private LinkedList<Person> victims;
+    private LinkedList<Message> messages;
 
     public ConfigManager() throws IOException {
         loadFileProperties("./configuration/properties.properties");
@@ -46,7 +47,6 @@ public class ConfigManager implements IconfigManager {
     public LinkedList<Person> getVictims() {
         return victims;
     }
-    
 
     @Override
     public void loadFileProperties(String fileName) throws IOException {
@@ -65,22 +65,29 @@ public class ConfigManager implements IconfigManager {
     }
 
     @Override
-    public void loadVictims(String fileName)throws IOException {
+    public void loadVictims(String fileName) throws IOException {
         FileReader fileReader = new FileReader(fileName);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String mail;
-        while((mail=bufferedReader.readLine())!=null){
+        while ((mail = bufferedReader.readLine()) != null) {
             victims.add(new Person(mail));
         }
     }
 
     @Override
-    public void loadMessages(String filename)throws IOException {
-                FileReader fileReader = new FileReader(filename);
+    public void loadMessages(String filename) throws IOException {
+        FileReader fileReader = new FileReader(filename);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
         String message;
-        while((message=bufferedReader.readLine())!=null){
-            victims.add(new Person(message));
+        while ((message = bufferedReader.readLine()) != null) {
+            String subject = bufferedReader.readLine();
+            bufferedReader.readLine();
+            String body="";
+            String s;
+            while ((s = bufferedReader.readLine())!="@@@") {
+                body+=s;
+            }
+            messages.add(new Message(subject, body));
         }
     }
 

@@ -30,7 +30,6 @@ public class SmtpClient implements ISmtpClient {
 
     @Override
     public void sendMessage(Prank prank) throws IOException {
-        Message message =prank.getMessage();
         socket = new Socket(serverAddress, smtpServerPort);
         writer = new PrintWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF-8"), true);
         reader = new BufferedReader(new InputStreamReader(socket.getInputStream(), "UTF-8"));
