@@ -7,7 +7,6 @@ import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Iterator;
-import mailrobot.models.mail.Message;
 import mailrobot.models.mail.Person;
 import mailrobot.models.prank.Prank;
 

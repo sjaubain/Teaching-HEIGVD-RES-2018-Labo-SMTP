@@ -11,9 +11,9 @@ import mailrobot.models.mail.Message;
 
 /**
  *
- * @author oussama
+ * @author oussama lagha -simon jobin
  */
-public class ConfigManager implements IconfigManager {
+public final class ConfigManager implements IconfigManager {
 
     private String SMTPServerAdress;
     private int SMTPServerPort;
@@ -21,7 +21,7 @@ public class ConfigManager implements IconfigManager {
     private LinkedList<Person> witness;
     private LinkedList<Person> victims;
     private LinkedList<Message> messages;
-
+//constructor
     public ConfigManager() throws IOException {
         witness = new LinkedList();
         victims = new LinkedList();
@@ -30,31 +30,7 @@ public class ConfigManager implements IconfigManager {
         loadVictims("./src/configuration//listVictims.txt");
         loadMessages("./src/configuration//messages.utf8");
     }
-
-    public String getSMTPServerAdress() {
-        return SMTPServerAdress;
-    }
-
-    public int getSMTPServerPort() {
-        return SMTPServerPort;
-    }
-
-    public int getNombreGroupe() {
-        return nombreGroupe;
-    }
-
-    public LinkedList<Person> getWitness() {
-        return witness;
-    }
-
-    public LinkedList<Person> getVictims() {
-        return victims;
-    }
-
-    public LinkedList<Message> getMessages() {
-        return messages;
-    }
-
+    
     @Override
     public void loadFileProperties(String fileName) throws IOException {
 
@@ -101,6 +77,30 @@ public class ConfigManager implements IconfigManager {
         }
         fileReader.close();
         bufferedReader.close();
+    }
+//Getters and Setters
+    public String getSMTPServerAdress() {
+        return SMTPServerAdress;
+    }
+
+    public int getSMTPServerPort() {
+        return SMTPServerPort;
+    }
+
+    public int getNombreGroupe() {
+        return nombreGroupe;
+    }
+
+    public LinkedList<Person> getWitness() {
+        return witness;
+    }
+
+    public LinkedList<Person> getVictims() {
+        return victims;
+    }
+
+    public LinkedList<Message> getMessages() {
+        return messages;
     }
 
 }

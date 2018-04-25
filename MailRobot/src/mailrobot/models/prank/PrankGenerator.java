@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package mailrobot.models.prank;
 
 import java.io.IOException;
@@ -34,6 +29,9 @@ public class PrankGenerator {
         return pranks;
     }
 
+    /*
+    *@param permet de generer des prank en fonction du nombre du groupe 
+     */
     public void generatePrank() {
 
         Random rand = new Random();

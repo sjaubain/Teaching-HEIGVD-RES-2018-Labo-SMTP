@@ -1,12 +1,11 @@
 
 package mailrobot.models.mail;
 
-import java.util.LinkedList;
-
 /**
  *
  * @author Lagha Oussama - Jobin Simon
  */
+
 public class Message {
     private String subject;
     private String body;
@@ -15,7 +14,7 @@ public class Message {
         this.subject = subject;
         this.body = body;
     }
-
+//Getters and Setters
     public String getSubject() {
         return subject;
     }

@@ -15,7 +15,7 @@ public class Prank {
     private final LinkedList<Person> victimRecipients = new LinkedList<>();
     private final LinkedList<Person> witnessRecipients = new LinkedList<>();
     private Message message;
-
+//Getters and Setters
     public Person getVictimSender() {
         return victimSender;
     }

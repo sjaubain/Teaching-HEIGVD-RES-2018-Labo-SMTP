@@ -15,6 +15,7 @@ public class Person {
         this.prenom = prenom;
         this.mail = mail;
     }
+    //getters and setters
     public Person(String mail){
         this.mail=mail;
     }
